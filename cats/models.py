@@ -1,6 +1,15 @@
 from django.db import models
 
 
+CHOICES = (
+    ('Gray', 'Серый'),
+    ('Black', 'Черный'),
+    ('White', 'Белый'),
+    ('Ginger', 'Рыжий'),
+    ('Mixed', 'Смешанный'),
+)
+
+
 class Cat(models.Model):
     name = models.CharField(max_length=16)
     color = models.CharField(max_length=16)

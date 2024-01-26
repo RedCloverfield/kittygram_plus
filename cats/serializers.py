@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 import datetime as dt
 
-from .models import Achievement, Cat, Owner, AchievementCat
+from .models import Achievement, Cat, Owner, AchievementCat, CHOICES
 
 
 class Hex2NameColor(serializers.Field):
@@ -37,6 +37,7 @@ class CatSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField()
     # Цвет нужно будет передавать в hex-формате, возвращаться будет его название
     # color = Hex2NameColor()
+    color = serializers.ChoiceField(choices=CHOICES)
 
     class Meta:
         model = Cat
@@ -66,6 +67,13 @@ class CatSerializer(serializers.ModelSerializer):
     def get_age(self, obj):
         return dt.datetime.now().year - obj.birth_year
 
+
+class CatListSerializer(serializers.ModelSerializer):
+    color = serializers.ChoiceField(choices=CHOICES)
+
+    class Meta:
+        model = Cat
+        fields = ('id', 'name', 'color')
 
 class OwnerSerializer(serializers.ModelSerializer):
     cats = serializers.StringRelatedField(many=True, read_only=True)
