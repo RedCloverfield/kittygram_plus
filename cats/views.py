@@ -1,9 +1,18 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Cat, Owner
 from .serializers import CatSerializer, CatListSerializer, OwnerSerializer
+
+
+class CreateRetriveViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    pass
+
+
+class LightCatViewSet(CreateRetriveViewSet):
+    queryset = Cat.objects.all()
+    serializer_class = CatSerializer
 
 
 class CatViewSet(viewsets.ModelViewSet):
