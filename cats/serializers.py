@@ -75,6 +75,7 @@ class CatListSerializer(serializers.ModelSerializer):
         model = Cat
         fields = ('id', 'name', 'color')
 
+
 class OwnerSerializer(serializers.ModelSerializer):
     cats = serializers.StringRelatedField(many=True, read_only=True)
 
